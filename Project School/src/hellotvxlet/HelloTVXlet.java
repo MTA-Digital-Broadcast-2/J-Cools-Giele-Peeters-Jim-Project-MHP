@@ -53,9 +53,6 @@ public class HelloTVXlet implements Xlet, UserEventListener {
 
     public void startXlet() throws XletStateChangeException{
         
-    MijnTimerTask objMijnTimerTask = new MijnTimerTask(this);
-    Timer timer = new Timer();
-    timer.scheduleAtFixedRate(objMijnTimerTask, 0, 100);
     System.out.println("Xlet gestart");
     
     EventManager manager = EventManager.getInstance();
