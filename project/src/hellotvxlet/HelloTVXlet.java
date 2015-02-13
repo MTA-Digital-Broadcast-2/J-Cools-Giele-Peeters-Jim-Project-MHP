@@ -28,6 +28,7 @@ public class HelloTVXlet implements Xlet, UserEventListener, ResourceClient, HBa
     private HBackgroundImage bgImage = new HBackgroundImage("backgroundimage.jpg");
     
     private PlayerBlock playerblock;
+    private GroundBlock groundblock;
     
 
     
@@ -88,8 +89,28 @@ public class HelloTVXlet implements Xlet, UserEventListener, ResourceClient, HBa
      
       scene = HSceneFactory.getInstance().getBestScene(sceneTemplate);
       
+
+      //grootte en breedte van het scherm
+      Dimension screensize = Toolkit.getDefaultToolkit().getScreenSize();
+      int screenHeight = screensize.height;
+      int screenWidth = screensize.width;
+      
+      
       playerblock = new PlayerBlock("cubehead.png", 0, 0, 100, 100);
+      groundblock = new GroundBlock("grondbloknature.png", 0, (screenHeight - 75), screenWidth, 100);
+      //System.out.println(screenHeight);
+      //System.out.println(screenWidth);
+      //System.out.println(screenHeight - 100);
+      
+      //Vraag labo ---------------------------------------------------------------------------------------------------
+      System.out.println(playerblock.getHeight());
+      System.out.println(playerblock.getWidth());
+       System.out.println(groundblock.getHeight());
+      System.out.println(groundblock.getWidth());
+      
+      
       scene.add(playerblock);
+      scene.add(groundblock);
        
       scene.validate();
       scene.setVisible(true);
@@ -137,15 +158,19 @@ public class HelloTVXlet implements Xlet, UserEventListener, ResourceClient, HBa
            {
                case HRcEvent.VK_LEFT:
                    System.out.println("Left key pressed");
+                   this.playerblock.move(1);
                    break;
                case HRcEvent.VK_RIGHT:
                    System.out.println("Right key pressed");
+                   this.playerblock.move(3);
                    break;
                case HRcEvent.VK_UP:
                    System.out.println("Up key pressed");
+                   this.playerblock.move(2);
                    break;
                case HRcEvent.VK_DOWN:
                    System.out.println("Down key pressed");
+                   this.playerblock.move(4);
                    break;
                    
            }

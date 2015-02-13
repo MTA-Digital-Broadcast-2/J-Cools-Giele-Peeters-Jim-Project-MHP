@@ -1,10 +1,10 @@
 Signature-Version: 1.0
 Created-By: 1.6.0_16 (Sun Microsystems Inc.)
 BDJ-Signature-Version: 1.0
-SHA1-Digest-Manifest: dKxRY/OXSf1cS0JOT28m7zT86f0=
+SHA1-Digest-Manifest: 8L3xC+lkbseTb47KLHDZCVMNq2s=
 
 Name: hellotvxlet/HelloTVXlet.class
-SHA1-Digest: RsCSz1FyHOuukYoRvsz72XJZkCI=
+SHA1-Digest: D2dVd3sLkVDrrox5eVvoeoHtPWk=
 
 Name: coin_silver.png
 SHA1-Digest: FzscEjtYd/X/Kfs2dzFrE+YelnE=
@@ -19,16 +19,19 @@ Name: grondbloknature.png
 SHA1-Digest: 3KxAacoU0gKetYdlAKM4disWUqA=
 
 Name: hellotvxlet/bluray.HelloTVXlet.perm
-SHA1-Digest: Iz2EmX/hIvVXbO3PX0e6hezSY28=
+SHA1-Digest: 84ZO/rYCyy0JStmaLbg1GDVEFhQ=
+
+Name: hellotvxlet/GroundBlock.class
+SHA1-Digest: lcTLMo7xyz9o4czHg95n5cD58mw=
 
 Name: backgroundimage.jpg
 SHA1-Digest: ABKNreAMnfNJSLFckZgb/epuzsk=
 
 Name: hellotvxlet/PlayerBlock.class
-SHA1-Digest: w66G6B72/eThf+7esNLIokf0iIY=
+SHA1-Digest: LmO/k5yOHbnrFUemGg8BGKTXSBU=
 
 Name: Thumbs.db
-SHA1-Digest: I6Hag9e1N4jWRHuqTv5cIgftQJ8=
+SHA1-Digest: 9Ps/PSWpRwIa6rHoPHH4/KIF6YY=
 
 Name: coin_bronze.png
 SHA1-Digest: WIN41ViUXt8qYKSR30GmrR/sa/A=

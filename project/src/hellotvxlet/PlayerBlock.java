@@ -29,7 +29,7 @@ public class PlayerBlock extends HComponent {
    //Moving
    private boolean _isMovingLeft;
    private boolean _isMovingRight;
-   private int _velocityX;
+   private int _velocityX = 12;
    
    //Falling 
    //Deze hoeven geen properties te hebben, want zijn enkel nodig voor PlayerBlock
@@ -66,17 +66,24 @@ public class PlayerBlock extends HComponent {
         this.setBounds(_posX, _posY, _width, _height);
    }
    
-    public void move(String direction)
+    public void move(int direction)
     {
         switch (direction)
         {
-            case: "up":
+            case 1:
+                this._posX -= this._velocityX; //Left
                 break;
-            case: "down":
+            case 2:
+                this._posY -= this._jumpForce; //Up
                 break;
-            case
+            case 3:
+                this._posX += this._velocityX; //right
+                break;
+            case 4:
+                this._posY += this._jumpForce; //down
+                break;
         }
-        this.setBounds(initXPos, initYPos, _image.getWidth(this), _image.getHeight(this));
+        this.setBounds(this._posX, this._posY, _image.getWidth(this), _image.getHeight(this));
     }
     
    
