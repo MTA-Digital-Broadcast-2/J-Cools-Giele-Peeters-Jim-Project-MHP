@@ -20,13 +20,14 @@ public class HelloTVXlet implements Xlet, UserEventListener, ResourceClient, HBa
     private HScene scene;
     private boolean debug=true;
    
-    //Background image
+    //achtergrond
     private HScreen screen;
     private HBackgroundDevice bgDevice;
     private HBackgroundConfigTemplate bgTemplate;
     private HStillImageBackgroundConfiguration bgConfiguration;
     private HBackgroundImage bgImage = new HBackgroundImage("backgroundimage.jpg");
     
+    private PlayerBlock playerblock;
     
 
     
@@ -39,7 +40,7 @@ public class HelloTVXlet implements Xlet, UserEventListener, ResourceClient, HBa
       if(debug) System.out.println("Xlet Initialiseren");
       this.actueleXletContext = xletContext;
 
-      //Background image
+      //achtergrond instellen
       // HScreen object opvragen
       screen = HScreen.getDefaultHScreen();
       
@@ -74,29 +75,22 @@ public class HelloTVXlet implements Xlet, UserEventListener, ResourceClient, HBa
           System.out.println(s.toString());
       }
       
+      
       //scene instellen
       HSceneTemplate sceneTemplate = new HSceneTemplate();
       sceneTemplate.setPreference(HSceneTemplate.SCENE_SCREEN_DIMENSION, 
-                                  new HScreenDimension(1.0f, 1.0f), 
-                                  HSceneTemplate.REQUIRED);
+                                   new HScreenDimension(1.0f, 1.0f), 
+                                   HSceneTemplate.REQUIRED);
       
       sceneTemplate.setPreference(HSceneTemplate.SCENE_SCREEN_LOCATION, 
-                                  new HScreenPoint(0.0f, 0.0f), 
-                                  HSceneTemplate.REQUIRED);
-      
+                                   new HScreenPoint(0.0f, 0.0f), 
+                                   HSceneTemplate.REQUIRED);
+     
       scene = HSceneFactory.getInstance().getBestScene(sceneTemplate);
-        
-        spaceship = new Sprite("spaceship.png", 0, 0);
-        scene.add(spaceship);
-        
-        sterren = new Sprite("sterren.png", 0, 0);
-        scene.add(sterren);
-        
-        sterren2 = new Sprite("sterren.png", 0, 0);
-        scene.add(sterren2);
       
-      
-      
+      playerblock = new PlayerBlock("cubehead.png", 0, 0, 100, 100);
+      scene.add(playerblock);
+       
       scene.validate();
       scene.setVisible(true);
       
