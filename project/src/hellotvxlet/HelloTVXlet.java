@@ -29,6 +29,7 @@ public class HelloTVXlet implements Xlet, UserEventListener, ResourceClient, HBa
     
     private PlayerBlock playerblock;
     private GroundBlock groundblock;
+    private PlatformBlock platformblock;
     
 
     
@@ -91,13 +92,14 @@ public class HelloTVXlet implements Xlet, UserEventListener, ResourceClient, HBa
       
 
       //grootte en breedte van het scherm
-      Dimension screensize = Toolkit.getDefaultToolkit().getScreenSize();
-      int screenHeight = screensize.height;
-      int screenWidth = screensize.width;
+      Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+      int screenHeight = screenSize.height;
+      int screenWidth = screenSize.width;
       
       
-      playerblock = new PlayerBlock("cubehead.png", 0, 0, 100, 100);
+      playerblock = new PlayerBlock("cubehead.png", 0, 0, 100, 100, screenSize);
       groundblock = new GroundBlock("grondbloknature.png", 0, (screenHeight - 75), screenWidth, 100);
+      platformblock = new PlatformBlock("block.png", 100, 100, screenHeight-100, 100);
       //System.out.println(screenHeight);
       //System.out.println(screenWidth);
       //System.out.println(screenHeight - 100);
@@ -111,6 +113,7 @@ public class HelloTVXlet implements Xlet, UserEventListener, ResourceClient, HBa
       
       scene.add(playerblock);
       scene.add(groundblock);
+      scene.add(platformblock);
        
       scene.validate();
       scene.setVisible(true);

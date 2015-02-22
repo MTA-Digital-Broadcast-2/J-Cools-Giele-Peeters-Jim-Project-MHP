@@ -23,6 +23,7 @@ public class PlayerBlock extends HComponent {
    private int _width;
    private int _height;
    private Image _image;
+   private Dimension _screenSize;
    
    private MediaTracker mtrack; 
    
@@ -43,12 +44,14 @@ public class PlayerBlock extends HComponent {
    private int _isStartJumpForce = 12;
    
    
-   public PlayerBlock(String initBitmapNaam, int initXPos, int initYPos, int initWidth, int initHeight)
+   public PlayerBlock(String initBitmapNaam, int initXPos, int initYPos, int initWidth, int initHeight, Dimension initScreenSize)
    {
          _posX = initXPos;
          _posY = initYPos;
          _width = initWidth;
          _height = initHeight;
+         _screenSize = initScreenSize;
+         
          
          _image = this.getToolkit().getImage(initBitmapNaam);
          mtrack = new MediaTracker(this);
@@ -86,7 +89,6 @@ public class PlayerBlock extends HComponent {
         this.setBounds(this._posX, this._posY, _image.getWidth(this), _image.getHeight(this));
     }
     
-   
     public void paint (Graphics g)
     {
         g.drawImage(_image, 0, 0, this);
