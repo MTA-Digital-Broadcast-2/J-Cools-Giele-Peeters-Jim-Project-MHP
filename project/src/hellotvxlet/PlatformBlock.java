@@ -27,7 +27,7 @@ public class PlatformBlock extends HComponent {
    
    public PlatformBlock(String initBitmapNaam, int initXPos, int initYPos, int initWidth, int initHeight)
    {
-        _posX = initXPos;
+         _posX = initXPos;
          _posY = initYPos;
          _width = initWidth;
          _height = initHeight;

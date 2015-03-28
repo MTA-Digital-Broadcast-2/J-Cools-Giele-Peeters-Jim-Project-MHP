@@ -1,7 +1,7 @@
 Signature-Version: 1.0
 Created-By: 1.6.0_16 (Sun Microsystems Inc.)
 BDJ-Signature-Version: 1.0
-SHA1-Digest-Manifest: ahjZHevmjE51CcllrnKq4XSRbFs=
+SHA1-Digest-Manifest: S1OB6yO+BoQcDPS7+ZCsKod7Qbo=
 
 Name: hellotvxlet/MijnComponent.class
 SHA1-Digest: Hs+pL3kpB7QXfwbvh5IhNXsywUo=
@@ -12,14 +12,14 @@ SHA1-Digest: tNeu9bhc12uxlOsHqqK1wIvwL3Y=
 Name: hellotvxlet/GroundBlock.class
 SHA1-Digest: lcTLMo7xyz9o4czHg95n5cD58mw=
 
+Name: hellotvxlet/PlayerBlock.class
+SHA1-Digest: MD4Vf7dQKGBiuZ1RejjOdyjG3C8=
+
 Name: backgroundimage.jpg
 SHA1-Digest: ABKNreAMnfNJSLFckZgb/epuzsk=
 
-Name: hellotvxlet/PlayerBlock.class
-SHA1-Digest: ntLbCEVhPvtWyCOJMLFnTl1LWKc=
-
 Name: hellotvxlet/HelloTVXlet.class
-SHA1-Digest: lbL95rQz0BBVT5FbeR4CTu7SSXw=
+SHA1-Digest: ezpMEDLtQPCINQEOc9ZV0fq5Wx4=
 
 Name: block.png
 SHA1-Digest: nLGAH0PgFaIDrpY8cOG673nwzhw=
@@ -38,6 +38,9 @@ SHA1-Digest: WHLnNU4ZUJKT/d2rhjsBjdlmetM=
 
 Name: Thumbs.db
 SHA1-Digest: fmsMZxhdmlYUP/U6c+zGOMMPmDQ=
+
+Name: hellotvxlet/MijnTimerTask.class
+SHA1-Digest: VTyd4Bvl4NIApJwzxOlP5X9brYA=
 
 Name: cubehead.png
 SHA1-Digest: 4uv840wQnOXzrtT5j/iy5aUCiDU=

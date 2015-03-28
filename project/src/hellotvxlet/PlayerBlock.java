@@ -32,6 +32,31 @@ public class PlayerBlock extends HComponent {
    private boolean _isMovingRight;
    private int _velocityX = 12;
    
+   //getter
+   public boolean getIsMovingLeft()
+   {
+       return this._isMovingLeft;
+   }
+   //setter
+   public void setIsMovingLeft(boolean initIsMovingLeft)
+   {
+       this._isMovingLeft = initIsMovingLeft;
+       this._isMovingRight = false;
+   }
+   
+   //getter
+   public boolean getIsMovingRight()
+   {
+       return this._isMovingRight;
+   }
+   //setter
+   public void setIsMovingRight(boolean initIsMovingRight)
+   {
+       this._isMovingRight = initIsMovingRight;
+       this._isMovingLeft = false;
+   }
+   
+   
    //Falling 
    //Deze hoeven geen properties te hebben, want zijn enkel nodig voor PlayerBlock
    private boolean _isFalling = true;
@@ -68,7 +93,7 @@ public class PlayerBlock extends HComponent {
         
         this.setBounds(_posX, _posY, _width, _height);
    }
-   
+   /*
     public void move(int direction)
     {
         switch (direction)
@@ -87,12 +112,42 @@ public class PlayerBlock extends HComponent {
                 break;
         }
         this.setBounds(this._posX, this._posY, _image.getWidth(this), _image.getHeight(this));
+    }*/
+   
+   public void move()
+    {
+        if (this._isMovingLeft == true)
+        {
+            System.out.print("Playerblock is moving left.");
+            this._posX -= this._velocityX; //Left
+        }
+        else if (this._isMovingRight == true)
+        {
+            System.out.print("Playerblock is moving right.");
+            this._posX += this._velocityX; //right
+        }
+        
+               
+           /*
+            case 2:
+                this._posY -= this._jumpForce; //Up
+                break;
+            case 3:
+              
+                break;
+            case 4:
+                this._posY += this._jumpForce; //down
+                break;*/
+        
+        this.setBounds(this._posX, this._posY, _image.getWidth(this), _image.getHeight(this));
     }
     
     public void paint (Graphics g)
     {
         g.drawImage(_image, 0, 0, this);
     }
+    
+   
 
    
    

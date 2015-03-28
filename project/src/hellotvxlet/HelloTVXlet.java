@@ -89,14 +89,12 @@ public class HelloTVXlet implements Xlet, UserEventListener, ResourceClient, HBa
                                    HSceneTemplate.REQUIRED);
      
       scene = HSceneFactory.getInstance().getBestScene(sceneTemplate);
-      
-
+     
       //grootte en breedte van het scherm
       Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
       int screenHeight = screenSize.height;
       int screenWidth = screenSize.width;
-      
-      
+        
       playerblock = new PlayerBlock("cubehead.png", 0, 0, 100, 100, screenSize);
       groundblock = new GroundBlock("grondbloknature.png", 0, (screenHeight - 75), screenWidth, 100);
       platformblock = new PlatformBlock("block.png", 100, 100, screenHeight-100, 100);
@@ -107,14 +105,17 @@ public class HelloTVXlet implements Xlet, UserEventListener, ResourceClient, HBa
       //Vraag labo ---------------------------------------------------------------------------------------------------
       System.out.println(playerblock.getHeight());
       System.out.println(playerblock.getWidth());
-       System.out.println(groundblock.getHeight());
+      System.out.println(groundblock.getHeight());
       System.out.println(groundblock.getWidth());
-      
       
       scene.add(playerblock);
       scene.add(groundblock);
       scene.add(platformblock);
-       
+      
+      MijnTimerTask objMijnTimerTask = new MijnTimerTask(this);
+      Timer timer = new Timer();
+      timer.scheduleAtFixedRate(objMijnTimerTask, 0, 50); //start na 0s, tick elke 100ms
+      
       scene.validate();
       scene.setVisible(true);
       
@@ -161,19 +162,44 @@ public class HelloTVXlet implements Xlet, UserEventListener, ResourceClient, HBa
            {
                case HRcEvent.VK_LEFT:
                    System.out.println("Left key pressed");
-                   this.playerblock.move(1);
+                   //this.playerblock.move(1);
+                   this.playerblock.setIsMovingLeft(true);
                    break;
                case HRcEvent.VK_RIGHT:
                    System.out.println("Right key pressed");
-                   this.playerblock.move(3);
+                   this.playerblock.setIsMovingRight(true);
                    break;
                case HRcEvent.VK_UP:
                    System.out.println("Up key pressed");
-                   this.playerblock.move(2);
+                   //this.playerblock.move(2);
                    break;
                case HRcEvent.VK_DOWN:
                    System.out.println("Down key pressed");
-                   this.playerblock.move(4);
+                   //this.playerblock.move(4);
+                   break;
+                   
+           }
+       }
+       if(e.getType() == KeyEvent.KEY_RELEASED){
+           System.out.println("Pushed Button");
+           switch(e.getCode())
+           {
+               case HRcEvent.VK_LEFT:
+                   System.out.println("Left key released");
+                   //this.playerblock.move(1);
+                   this.playerblock.setIsMovingLeft(false);
+                   break;
+               case HRcEvent.VK_RIGHT:
+                   System.out.println("Right key released");
+                   this.playerblock.setIsMovingRight(false);
+                   break;
+               case HRcEvent.VK_UP:
+                   System.out.println("Up key released");
+                   //this.playerblock.move(2);
+                   break;
+               case HRcEvent.VK_DOWN:
+                   System.out.println("Down key released");
+                   //this.playerblock.move(4);
                    break;
                    
            }
@@ -206,5 +232,11 @@ public class HelloTVXlet implements Xlet, UserEventListener, ResourceClient, HBa
     public void imageLoadFailed(HBackgroundImageEvent e) {
         System.out.print("Image kan niet geladen worden.");
         throw new UnsupportedOperationException("Not supported yet.");
+    }
+    
+    public void timerCallback()
+    {
+        System.out.print("tick");
+        this.playerblock.move();
     }
 }
