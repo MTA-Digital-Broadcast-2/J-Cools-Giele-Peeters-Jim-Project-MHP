@@ -157,48 +157,50 @@ public class HelloTVXlet implements Xlet, UserEventListener, ResourceClient, HBa
     public void userEventReceived(org.dvb.event.UserEvent e) 
     {
        if(e.getType() == KeyEvent.KEY_PRESSED){
-           System.out.println("Pushed Button");
+           //System.out.println("Pushed Button");
            switch(e.getCode())
            {
                case HRcEvent.VK_LEFT:
-                   System.out.println("Left key pressed");
+                   //System.out.println("Left key pressed");
                    //this.playerblock.move(1);
                    this.playerblock.setIsMovingLeft(true);
                    break;
                case HRcEvent.VK_RIGHT:
-                   System.out.println("Right key pressed");
+                   //System.out.println("Right key pressed");
                    this.playerblock.setIsMovingRight(true);
                    break;
                case HRcEvent.VK_UP:
-                   System.out.println("Up key pressed");
-                   //this.playerblock.move(2);
+                  // System.out.println("Up key pressed");
+                   this.playerblock.setIsJumping(true);
+                   this.playerblock.setIsFalling(false);
                    break;
                case HRcEvent.VK_DOWN:
-                   System.out.println("Down key pressed");
+                   //System.out.println("Down key pressed");
                    //this.playerblock.move(4);
                    break;
                    
            }
        }
        if(e.getType() == KeyEvent.KEY_RELEASED){
-           System.out.println("Pushed Button");
+           //System.out.println("Released Button");
            switch(e.getCode())
            {
                case HRcEvent.VK_LEFT:
-                   System.out.println("Left key released");
+                   //System.out.println("Left key released");
                    //this.playerblock.move(1);
                    this.playerblock.setIsMovingLeft(false);
                    break;
                case HRcEvent.VK_RIGHT:
-                   System.out.println("Right key released");
+                   //System.out.println("Right key released");
                    this.playerblock.setIsMovingRight(false);
                    break;
                case HRcEvent.VK_UP:
-                   System.out.println("Up key released");
-                   //this.playerblock.move(2);
+                   //System.out.println("Up key released");
+                   this.playerblock.setIsJumping(false);
+                   this.playerblock.setIsFalling(true);
                    break;
                case HRcEvent.VK_DOWN:
-                   System.out.println("Down key released");
+                   //System.out.println("Down key released");
                    //this.playerblock.move(4);
                    break;
                    
@@ -236,7 +238,7 @@ public class HelloTVXlet implements Xlet, UserEventListener, ResourceClient, HBa
     
     public void timerCallback()
     {
-        System.out.print("tick");
+        //System.out.print("tick");
         this.playerblock.move();
     }
 }
