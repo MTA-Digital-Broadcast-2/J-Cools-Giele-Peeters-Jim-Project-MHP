@@ -31,6 +31,7 @@ public class HelloTVXlet implements Xlet, UserEventListener, ResourceClient, HBa
     private GroundBlock groundblock;
     private PlatformBlock platformblock;
     
+    private Sprite[] arrSprites = new Sprite[20]; 
 
     
     //---------------------
@@ -95,9 +96,9 @@ public class HelloTVXlet implements Xlet, UserEventListener, ResourceClient, HBa
       int screenHeight = screenSize.height;
       int screenWidth = screenSize.width;
         
-      playerblock = new PlayerBlock("cubehead.png", 0, 0, 100, 100, screenSize);
+      playerblock = new PlayerBlock("cubehead.png", 0, 0, 100, 100, 12);
       groundblock = new GroundBlock("grondbloknature.png", 0, (screenHeight - 75), screenWidth, 100);
-      platformblock = new PlatformBlock("block.png", 100, 100, screenHeight-100, 100);
+      platformblock = new PlatformBlock("block.png", 100, 100, screenHeight-100, 100, 0);
       //System.out.println(screenHeight);
       //System.out.println(screenWidth);
       //System.out.println(screenHeight - 100);
@@ -107,6 +108,11 @@ public class HelloTVXlet implements Xlet, UserEventListener, ResourceClient, HBa
       System.out.println(playerblock.getWidth());
       System.out.println(groundblock.getHeight());
       System.out.println(groundblock.getWidth());
+      
+      //sprites aan array toevoegen
+      arrSprites[0] = playerblock;
+      arrSprites[1] = groundblock;
+      arrSprites[2] = platformblock;
       
       scene.add(playerblock);
       scene.add(groundblock);
@@ -138,8 +144,7 @@ public class HelloTVXlet implements Xlet, UserEventListener, ResourceClient, HBa
     repository.addKey(org.havi.ui.event.HRcEvent.VK_RIGHT);
     
     manager.addUserEventListener(this, repository);
-    
-       
+   
     }
 
     public void pauseXlet() 
@@ -153,7 +158,6 @@ public class HelloTVXlet implements Xlet, UserEventListener, ResourceClient, HBa
           bgImage.flush();
     }
 
-
     public void userEventReceived(org.dvb.event.UserEvent e) 
     {
        if(e.getType() == KeyEvent.KEY_PRESSED){
@@ -161,18 +165,19 @@ public class HelloTVXlet implements Xlet, UserEventListener, ResourceClient, HBa
            switch(e.getCode())
            {
                case HRcEvent.VK_LEFT:
-                   //System.out.println("Left key pressed");
+                   System.out.println("Left key pressed");
                    //this.playerblock.move(1);
                    this.playerblock.setIsMovingLeft(true);
                    break;
                case HRcEvent.VK_RIGHT:
-                   //System.out.println("Right key pressed");
+                   System.out.println("Right key pressed");
+                   //this.playerblock.move(3);
                    this.playerblock.setIsMovingRight(true);
                    break;
                case HRcEvent.VK_UP:
                   // System.out.println("Up key pressed");
+                   //this.playerblock.move(2);
                    this.playerblock.setIsJumping(true);
-                   this.playerblock.setIsFalling(false);
                    break;
                case HRcEvent.VK_DOWN:
                    //System.out.println("Down key pressed");
@@ -187,7 +192,6 @@ public class HelloTVXlet implements Xlet, UserEventListener, ResourceClient, HBa
            {
                case HRcEvent.VK_LEFT:
                    //System.out.println("Left key released");
-                   //this.playerblock.move(1);
                    this.playerblock.setIsMovingLeft(false);
                    break;
                case HRcEvent.VK_RIGHT:
@@ -197,11 +201,9 @@ public class HelloTVXlet implements Xlet, UserEventListener, ResourceClient, HBa
                case HRcEvent.VK_UP:
                    //System.out.println("Up key released");
                    this.playerblock.setIsJumping(false);
-                   this.playerblock.setIsFalling(true);
                    break;
                case HRcEvent.VK_DOWN:
                    //System.out.println("Down key released");
-                   //this.playerblock.move(4);
                    break;
                    
            }
@@ -232,13 +234,18 @@ public class HelloTVXlet implements Xlet, UserEventListener, ResourceClient, HBa
     }
 
     public void imageLoadFailed(HBackgroundImageEvent e) {
-        System.out.print("Image kan niet geladen worden.");
+        System.out.println("Image kan niet geladen worden.");
         throw new UnsupportedOperationException("Not supported yet.");
     }
     
     public void timerCallback()
     {
-        //System.out.print("tick");
+        System.out.println("ticker");
         this.playerblock.move();
+    }
+    
+    public void detectCollision()
+    {
+        
     }
 }
