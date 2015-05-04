@@ -21,7 +21,7 @@ public class PlayerBlock extends Sprite {
    //Falling 
    //Deze hoeven geen properties te hebben, want zijn enkel nodig voor PlayerBlock
    private boolean _isFalling = true;
-   private int _velocityY = 1; //Hoe hard je naar beneden valt
+   private int _velocityY = 3; //Hoe hard je naar beneden valt
    
    //Jump
    private boolean _isJumping = true;
@@ -61,7 +61,7 @@ public class PlayerBlock extends Sprite {
        this._isFalling = false; //kan niet vallen terwijl hij springt
    }
    
-     //getter
+   //getter
    public boolean getIsFalling()
    {
        return this._isFalling;
@@ -72,6 +72,17 @@ public class PlayerBlock extends Sprite {
    {
        this._isFalling = initIsFalling;
    }
+   
+    //getter
+    public boolean getIsStartJumping() {
+        return this._isStartJumping;
+    }
+    
+    //setter
+    public void setIsStartJumping(boolean initIsStartJumping) 
+    {
+        this._isStartJumping = initIsStartJumping;
+    }
    
    public PlayerBlock(String initBitmapNaam, int initXPos, int initYPos, int initWidth, int initHeight, int initVelocityX )
    {
@@ -106,12 +117,12 @@ public class PlayerBlock extends Sprite {
        
         if (this._isMovingLeft == true)
         {
-            System.out.println("Playerblock is moving left.");
+//            System.out.println("Playerblock is moving left.");
             this._posX -= this._velocityX; //Left
         }
         else if (this._isMovingRight == true)
         {
-            System.out.println("Playerblock is moving right.");
+//            System.out.println("Playerblock is moving right.");
             this._posX += this._velocityX; //right
         }
        
@@ -193,7 +204,7 @@ public class PlayerBlock extends Sprite {
     
     public boolean getIsTopCollided(Sprite sprite)
     {
-       Rectangle otherSpriteRectangle = new Rectangle(sprite._posX, sprite._posY, sprite._width, this._velocityY);
+       Rectangle otherSpriteRectangle = new Rectangle(sprite._posX, sprite._posY, sprite._width, sprite._height);
        Rectangle _playerblockRectangle = new Rectangle(this._posX, this._posY, this._width, this._height);
        
        return otherSpriteRectangle.intersects(_playerblockRectangle);

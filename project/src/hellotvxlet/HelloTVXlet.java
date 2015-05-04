@@ -28,8 +28,12 @@ public class HelloTVXlet implements Xlet, UserEventListener, ResourceClient, HBa
     private HBackgroundImage bgImage = new HBackgroundImage("backgroundimage.jpg");
     
     private PlayerBlock playerblock;
-    private GroundBlock groundblock;
-    private PlatformBlock platformblock;
+    private Sprite groundblock;
+//    private PlatformBlock platformblock1;
+    private Sprite platformblock1;
+    private Sprite platformblock2;
+    private Sprite platformblock3;
+    private Sprite platformblock4;
     
     private Sprite[] arrSprites = new Sprite[20]; 
 
@@ -96,9 +100,13 @@ public class HelloTVXlet implements Xlet, UserEventListener, ResourceClient, HBa
       int screenHeight = screenSize.height;
       int screenWidth = screenSize.width;
         
-      playerblock = new PlayerBlock("cubehead.png", 0, 0, 100, 100, 12);
-      groundblock = new GroundBlock("grondbloknature.png", 0, (screenHeight - 75), screenWidth, 100);
-      platformblock = new PlatformBlock("block.png", 100, 100, screenHeight-100, 100, 0);
+      playerblock = new PlayerBlock("cubehead.png", 0, 0, 60, 60, 8);
+      groundblock = new Sprite("grondbloknature.png", 0, (screenHeight - 75), screenWidth, 75);
+//      platformblock1 = new PlatformBlock("block.png", 100, 100, screenHeight-100, 100, 0);
+      platformblock1 = new Sprite("block.png", 100, 100, 70, 70);
+      platformblock2 = new Sprite("block.png", 300, 300, 70, 70);
+      platformblock3 = new Sprite("block.png", 50, 400, 70, 70);
+      platformblock4 = new Sprite("block.png", 50, 300, 70, 70);
       //System.out.println(screenHeight);
       //System.out.println(screenWidth);
       //System.out.println(screenHeight - 100);
@@ -112,11 +120,17 @@ public class HelloTVXlet implements Xlet, UserEventListener, ResourceClient, HBa
       //sprites aan array toevoegen
       arrSprites[0] = playerblock;
       arrSprites[1] = groundblock;
-      arrSprites[2] = platformblock;
+      arrSprites[2] = platformblock1;
+      arrSprites[3] = platformblock2;
+      arrSprites[4] = platformblock3;
+      arrSprites[5] = platformblock4;
       
       scene.add(playerblock);
       scene.add(groundblock);
-      scene.add(platformblock);
+      scene.add(platformblock1);
+      scene.add(platformblock2);
+      scene.add(platformblock3);
+      scene.add(platformblock4);
       
       MijnTimerTask objMijnTimerTask = new MijnTimerTask(this);
       Timer timer = new Timer();
@@ -130,6 +144,8 @@ public class HelloTVXlet implements Xlet, UserEventListener, ResourceClient, HBa
     public void startXlet() throws XletStateChangeException{
         
     if(debug) System.out.println("Xlet Starten");
+    
+    System.out.println("groundlbock: " + Integer.toString(groundblock._posY-groundblock._height));
     
     // Image laden
     bgImage.load(this);
@@ -165,12 +181,12 @@ public class HelloTVXlet implements Xlet, UserEventListener, ResourceClient, HBa
            switch(e.getCode())
            {
                case HRcEvent.VK_LEFT:
-                   System.out.println("Left key pressed");
+//                   System.out.println("Left key pressed");
                    //this.playerblock.move(1);
                    this.playerblock.setIsMovingLeft(true);
                    break;
                case HRcEvent.VK_RIGHT:
-                   System.out.println("Right key pressed");
+//                   System.out.println("Right key pressed");
                    //this.playerblock.move(3);
                    this.playerblock.setIsMovingRight(true);
                    break;
@@ -240,12 +256,62 @@ public class HelloTVXlet implements Xlet, UserEventListener, ResourceClient, HBa
     
     public void timerCallback()
     {
-        System.out.println("ticker");
+//        System.out.println("ticker");
         this.playerblock.move();
+        detectCollision();
     }
     
     public void detectCollision()
     {
-        
+        for(int n = 0; n < arrSprites.length; n++)
+        {
+            if (arrSprites[n] != null && !arrSprites[n].getClass().equals(PlayerBlock.class))
+            {
+//                System.out.println("arrsprite: " + arrSprites[n].getClass().toString());
+                if (arrSprites[n].getClass().equals(Sprite.class))
+                {
+                  
+                   if (playerblock.getIsBottomCollided(arrSprites[n]) && !playerblock.getIsLeftCollided(arrSprites[n]) && !playerblock.getIsRightCollided(arrSprites[n]))   //Als de playerblock zijn top de bottom van een sprite raakt begint hij weer te vallen 
+                   {
+                        System.out.println("bottom collided: " + playerblock.getIsBottomCollided(arrSprites[n]));
+                         playerblock.setIsJumping(false);
+                        playerblock.setIsStartJumping(false);
+                        playerblock.setIsFalling(true);
+                   }
+                    
+                   if (playerblock.getIsTopCollided(arrSprites[n]) && !playerblock.getIsLeftCollided(arrSprites[n]) && !playerblock.getIsRightCollided(arrSprites[n])) // Als de playerblock zijn onderkant de top van een Sprite raakt stopt hij met vallen en springen
+                   {
+                        System.out.println("top collided: " + playerblock.getIsTopCollided(arrSprites[n]));
+                        playerblock._posY = arrSprites[n]._posY - playerblock._height;
+                        playerblock.setIsFalling(false);
+                        playerblock.setIsJumping(playerblock.getIsStartJumping());   // De jumpforce reset
+                        playerblock.setIsStartJumping(false);
+//                      System.out.println("playerblock stop: " + Integer.toString(playerblock._posY));
+//                      System.out.println("groundblock stop: " + Integer.toString(groundblock._posY));
+                   }
+
+                   if (playerblock.getIsLeftCollided(arrSprites[n]))
+                   {
+                       System.out.println("left collided: " + playerblock.getIsLeftCollided(arrSprites[n]));
+                       //Na zijkant botsen vallen 
+//                        playerblock.setIsJumping(false);
+//                        playerblock.setIsStartJumping(false);
+//                        playerblock.setIsFalling(true);
+                        playerblock._posX -= playerblock._velocityX;
+                   } 
+
+                   if (playerblock.getIsRightCollided(arrSprites[n]))
+                   {
+                       System.out.println("right collided: " + playerblock.getIsRightCollided(arrSprites[n]));
+//                        playerblock.setIsJumping(false);
+//                       playerblock.setIsStartJumping(false);
+//                       playerblock.setIsFalling(true);
+                        playerblock._posX += playerblock._velocityX;
+                   }
+                }
+//
+//                System.out.println(arrSprites[n].getClass());
+            }
+        }
     }
 }
