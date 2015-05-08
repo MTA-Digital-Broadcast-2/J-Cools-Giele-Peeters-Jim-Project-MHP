@@ -31,14 +31,14 @@ public class HelloTVXlet implements Xlet, ResourceClient, HBackgroundImageListen
     
     private HBackgroundImage bgImg;
     
-    private MijnComponent tekstvak;
+//    private MijnComponent tekstvak;
+    private HStaticText tekstvak;
     private MijnComponent tekstPrijs;
     private HTextButton btnOK;
     
     private int teller = 0;
     private int bestellingTeller = 0;
     private String[][] arrPizzas = {{"Meat Lover's", "9.49"}, {"Pepperoni Lover's", "11.00"}, {"Cheese Lover's", "9.95"}, {"Vegi Lover's", "12.45"}};
-    //private double[] arrPrice = {9.49, 11.00, 9.95, 12.45};
     private String[][] arrBestelling;
     private double totalPrice = 0;
     
@@ -107,19 +107,20 @@ public class HelloTVXlet implements Xlet, ResourceClient, HBackgroundImageListen
         
         bgImg = bgImg1;
         
-        tekstvak = new MijnComponent(400, 65, 200, 250, "");
-        tekstPrijs = new MijnComponent(400, tekstvak.getY() + tekstvak.getHeight()+10, 200, 40, "Totaal: €" + Math.round(totalPrice*100.0)/100.0);
+        tekstvak = new HStaticText("");
+        tekstvak.setLocation(400, 65);
+        tekstvak.setSize(250, 250);
+        tekstvak.setBackground(new DVBColor(0, 127, 255, 70));
+        tekstvak.setBackgroundMode(HVisible.BACKGROUND_FILL);
+        tekstvak.setHorizontalAlignment(HVisible.HALIGN_LEFT);
+        tekstvak.setVerticalAlignment(HVisible.VALIGN_TOP);
+        
+        tekstPrijs = new MijnComponent(400, tekstvak.getY() + tekstvak.getHeight()+10, tekstvak.getWidth(), 40, "Totaal: €" + Math.round(totalPrice*100.0)/100.0);
         scene.add(tekstvak);
         scene.add(tekstPrijs);
         
-        arrBestelling = new String[10][2];
+        arrBestelling = new String[7][2];
           
-        //btnOK = new HTextButton("Toevoegen");
-        //btnOK.setLocation(150, 150);
-        //btnOK.setSize(100, 80);
-        //btnOK.setBackground(new DVBColor(0, 0, 0, 179));
-        //btnOK.setBackgroundMode(HVisible.BACKGROUND_FILL);
-        
         scene.validate();
         scene.setVisible(true);
     }
@@ -250,17 +251,17 @@ public class HelloTVXlet implements Xlet, ResourceClient, HBackgroundImageListen
     
     public void addPizza(int teller)
     {
-        System.out.println("Teller: " + teller );
+//        System.out.println("Teller: " + teller );
         
-        //niet meer dan upperbound items in de array
-        if (bestellingTeller == arrBestelling.length-1)
+        //niet meer dan upperbound items in de array --> max 7 pizza's
+        if (bestellingTeller == arrBestelling.length)
         {
             bestellingTeller = 0;
-            arrBestelling = new String[10][2];
+            arrBestelling = new String[7][2];
         }
         arrBestelling[bestellingTeller] = arrPizzas[teller];
         bestellingTeller++;
-        System.out.println("Pizza: " + arrPizzas[teller] );
+//        System.out.println("Pizza: " + arrPizzas[teller] );
        
         
         String strBestelling = ""; //bestelling terug leegmaken, en daarna opvullen met for-loop
@@ -268,30 +269,26 @@ public class HelloTVXlet implements Xlet, ResourceClient, HBackgroundImageListen
         
         String eol = System.getProperty("line.separator"); //get end of line character
         
-        System.out.println("EOL: " + eol );
-        
         int i;
-        for (i=0; i<arrBestelling.length-1; i++)
+        for (i=0; i<arrBestelling.length; i++)
         {
             if ( arrBestelling[i][0] != null ) //pizza name
             {
-                strBestelling = strBestelling + arrBestelling[i][0] + eol;
-                //String formatted = String.format("%s %n", arrBestelling[i]);            
+                strBestelling = strBestelling + arrBestelling[i][0] + " " + arrBestelling[i][1] + eol;           
             }
             
             if (arrBestelling[i][1] != null)
             {
                 //calculate totalPrice
                 double price = Double.parseDouble(arrBestelling[i][1]);
-                System.out.println("Prijs: " + price );
+//                System.out.println("Prijs: " + price );
                 totalPrice = totalPrice + price;
             }
         }
         
         System.out.println("strBestelling: " + strBestelling );
-        
-        
-        tekstvak.setContent(strBestelling);
+       
+        tekstvak.setTextContent(strBestelling, HVisible.NORMAL_STATE);
         tekstPrijs.setContent("Totaal: €" + Math.round(totalPrice*100.0)/100.0);
         tekstvak.repaint();
         tekstPrijs.repaint();
