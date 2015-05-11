@@ -21,13 +21,13 @@ public class PlayerBlock extends Sprite {
    //Falling 
    //Deze hoeven geen properties te hebben, want zijn enkel nodig voor PlayerBlock
    private boolean _isFalling = true;
-   private int _velocityY = 3; //Hoe hard je naar beneden valt
+   private int _velocityY = 20; //Hoe hard je naar beneden valt
    
    //Jump
-   private boolean _isJumping = true;
+   private boolean _isJumping = false;
    private boolean _isStartJumping = false;
-   private int _jumpForce = 12;
-   private int _isStartJumpForce = 12;
+   private int _jumpForce = 9;
+   private int _isStartJumpForce = 9;
    
     //getter
     public boolean getIsMovingLeft() {
@@ -58,7 +58,25 @@ public class PlayerBlock extends Sprite {
    public void setIsJumping(boolean initIsJumping)
    {
        this._isJumping = initIsJumping;
-       this._isFalling = false; //kan niet vallen terwijl hij springt
+       //this._isFalling = false; //kan niet vallen terwijl hij springt
+   }
+   
+   //getter
+   public int getJumpforce()
+   {
+       return this._jumpForce;
+   }
+   
+   //setter
+   public void setJumpForce(int initJumpForce)
+   {
+       this._jumpForce = initJumpForce;
+   }
+   
+   //getter
+   public int getStartJumpforce()
+   {
+       return this._isStartJumpForce;
    }
    
    //getter
@@ -130,6 +148,8 @@ public class PlayerBlock extends Sprite {
         this._posY += this._velocityY;
         
         //vallen wordt tegengewerkt als hij springt
+        System.out.println("isjumping : " + this._isJumping);
+        System.out.println("isstartjumping : " + this._isStartJumping);
         if (this._isJumping == true || this._isStartJumping == true) //jumping
         {
             if (this._posY < this._posY + this._jumpForce && this._isFalling == false)
@@ -226,7 +246,7 @@ public class PlayerBlock extends Sprite {
        return otherSpriteRectangle.intersects(_playerblockRectangle);
     }
     
-    public boolean isCollided(Sprite sprite)
+    public boolean getIsCollided(Sprite sprite)
     {
        Rectangle otherSpriteRectangle = new Rectangle(sprite._posX, sprite._posY, sprite._width, sprite._height);
        Rectangle _playerblockRectangle = new Rectangle(this._posX, this._posY, this._width, this._height);

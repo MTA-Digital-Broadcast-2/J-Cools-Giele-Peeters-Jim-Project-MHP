@@ -1,19 +1,22 @@
 Signature-Version: 1.0
 Created-By: 1.6.0_16 (Sun Microsystems Inc.)
 BDJ-Signature-Version: 1.0
-SHA1-Digest-Manifest: nxmnJzwibEjnuNs79QqXzJdTnto=
+SHA1-Digest-Manifest: VZ2cLy0f6K0jOEF2gavY/rgND0c=
 
 Name: hellotvxlet/HelloTVXlet.class
-SHA1-Digest: hio3wxi8I1j1EoPRe6VgY0UuUSs=
+SHA1-Digest: QFzjp9oL1oUY5ufxQ85BvIJ4Z3I=
 
 Name: hellotvxlet/MijnComponent.class
 SHA1-Digest: Hs+pL3kpB7QXfwbvh5IhNXsywUo=
 
+Name: coin_gold.png
+SHA1-Digest: tNeu9bhc12uxlOsHqqK1wIvwL3Y=
+
+Name: hellotvxlet/CoinBlock.class
+SHA1-Digest: faSgsH3QnP1u0BlMmrM3ipI52kM=
+
 Name: hellotvxlet/bluray.HelloTVXlet.perm
 SHA1-Digest: Iz2EmX/hIvVXbO3PX0e6hezSY28=
-
-Name: spaceship.png
-SHA1-Digest: frtj75ba3ffpQ4XUX6wXnP1WSfI=
 
 Name: hellotvxlet/GroundBlock.class
 SHA1-Digest: aI4pXWqeH15matm/KickD/nGhac=
@@ -22,13 +25,13 @@ Name: hellotvxlet/PlatformBlock.class
 SHA1-Digest: avmqihuCgdOPZRmEOZpM+v/aElU=
 
 Name: hellotvxlet/PlayerBlock.class
-SHA1-Digest: t1+7qebUCRC4DPPmdJNTlIVPqkA=
+SHA1-Digest: EQ1zWE01UWjRdkOnrzkDGZAsvug=
 
 Name: hellotvxlet/Sprite.class
 SHA1-Digest: kb8+tbJDfQPZQeXVSTJJZV+dPvU=
 
 Name: Thumbs.db
-SHA1-Digest: 7f8Xz4CiaFSsOCKiSIZ8quckO4Q=
+SHA1-Digest: 6tmyLYrY5/4ce++DDloLgfd7Lj0=
 
 Name: hellotvxlet/MijnTimerTask.class
 SHA1-Digest: VTyd4Bvl4NIApJwzxOlP5X9brYA=

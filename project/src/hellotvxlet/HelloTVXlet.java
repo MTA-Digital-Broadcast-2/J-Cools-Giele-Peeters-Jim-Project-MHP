@@ -29,11 +29,23 @@ public class HelloTVXlet implements Xlet, UserEventListener, ResourceClient, HBa
     
     private PlayerBlock playerblock;
     private Sprite groundblock;
+    
+    private Sprite leftblock;
+    private Sprite rightblock;
 //    private PlatformBlock platformblock1;
     private Sprite platformblock1;
     private Sprite platformblock2;
     private Sprite platformblock3;
     private Sprite platformblock4;
+    
+    private CoinBlock coin1;
+    private CoinBlock coin2;
+    private CoinBlock coin3;
+    private CoinBlock coin4;
+    private CoinBlock coin5;
+    
+    private int _score = 0;
+    private HStaticText _scoreText;
     
     private Sprite[] arrSprites = new Sprite[20]; 
 
@@ -99,17 +111,43 @@ public class HelloTVXlet implements Xlet, UserEventListener, ResourceClient, HBa
       Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
       int screenHeight = screenSize.height;
       int screenWidth = screenSize.width;
+      
+   
         
-      playerblock = new PlayerBlock("cubehead.png", 0, 0, 60, 60, 8);
+      playerblock = new PlayerBlock("cubehead.png", 0, (screenHeight - 75 - 60), 60, 60, 10);
       groundblock = new Sprite("grondbloknature.png", 0, (screenHeight - 75), screenWidth, 75);
+      
+      //left wall
+      leftblock = new Sprite("grondbloknature.png", -200, 0, 200, screenHeight);
+      
+      //right wall
+      rightblock = new Sprite("grondbloknature.png", screenWidth, 0, 200, screenHeight);
+      //groundblock = new Sprite("grondbloknature.png", 0, (screenHeight - 75), screenWidth, 75);
+  
+      
 //      platformblock1 = new PlatformBlock("block.png", 100, 100, screenHeight-100, 100, 0);
-      platformblock1 = new Sprite("block.png", 100, 100, 70, 70);
-      platformblock2 = new Sprite("block.png", 300, 300, 70, 70);
-      platformblock3 = new Sprite("block.png", 50, 400, 70, 70);
-      platformblock4 = new Sprite("block.png", 50, 300, 70, 70);
+      platformblock1 = new Sprite("block.png", 150, 350, 70, 70);
+      platformblock2 = new Sprite("block.png", 0, 230, 70, 70);
+      platformblock3 = new Sprite("block.png", 600, 260, 70, 70);
+      platformblock4 = new Sprite("block.png", 400, 400, 70, 70);
+      
+      coin1 = new CoinBlock("coin_gold.png", 100, 200, 35, 35);
+      coin2 = new CoinBlock("coin_gold.png", 200, 200, 35, 35);
+      coin3 = new CoinBlock("coin_gold.png", 300, 200, 35, 35);
+      coin4 = new CoinBlock("coin_gold.png", 400, 200, 35, 35);
+      coin5 = new CoinBlock("coin_gold.png", 500, 200, 35, 35);
       //System.out.println(screenHeight);
       //System.out.println(screenWidth);
       //System.out.println(screenHeight - 100);
+      
+      _scoreText = new HStaticText("Score: " + _score);
+      _scoreText.setSize(170, 70);
+      _scoreText.setLocation(screenWidth - _scoreText.getWidth()-8, 5);
+//      _scoreText.setSize(200, 100);
+      _scoreText.setBackground(new DVBColor(0, 127, 255, 70));
+//      _scoreText.setBackgroundMode(HVisible.BACKGROUND_FILL);
+      _scoreText.setHorizontalAlignment(HVisible.HALIGN_CENTER);
+      _scoreText.setVerticalAlignment(HVisible.VALIGN_CENTER);
       
       //Vraag labo ---------------------------------------------------------------------------------------------------
       System.out.println(playerblock.getHeight());
@@ -124,6 +162,13 @@ public class HelloTVXlet implements Xlet, UserEventListener, ResourceClient, HBa
       arrSprites[3] = platformblock2;
       arrSprites[4] = platformblock3;
       arrSprites[5] = platformblock4;
+      arrSprites[6] = leftblock;
+      arrSprites[7] = rightblock;
+      arrSprites[8] = coin1;
+      arrSprites[9] = coin2;
+      arrSprites[10] = coin3;
+      arrSprites[11] = coin4;
+      arrSprites[12] = coin5;
       
       scene.add(playerblock);
       scene.add(groundblock);
@@ -131,6 +176,15 @@ public class HelloTVXlet implements Xlet, UserEventListener, ResourceClient, HBa
       scene.add(platformblock2);
       scene.add(platformblock3);
       scene.add(platformblock4);
+      scene.add(leftblock);
+      scene.add(rightblock);
+      scene.add(coin1);
+      scene.add(coin2);
+      scene.add(coin3);
+      scene.add(coin4);
+      scene.add(coin5);
+      
+      scene.add(_scoreText);
       
       MijnTimerTask objMijnTimerTask = new MijnTimerTask(this);
       Timer timer = new Timer();
@@ -194,6 +248,7 @@ public class HelloTVXlet implements Xlet, UserEventListener, ResourceClient, HBa
                   // System.out.println("Up key pressed");
                    //this.playerblock.move(2);
                    this.playerblock.setIsJumping(true);
+                   //this.playerblock.setIsStartJumping(true);
                    break;
                case HRcEvent.VK_DOWN:
                    //System.out.println("Down key pressed");
@@ -273,7 +328,7 @@ public class HelloTVXlet implements Xlet, UserEventListener, ResourceClient, HBa
                   
                    if (playerblock.getIsBottomCollided(arrSprites[n]) && !playerblock.getIsLeftCollided(arrSprites[n]) && !playerblock.getIsRightCollided(arrSprites[n]))   //Als de playerblock zijn top de bottom van een sprite raakt begint hij weer te vallen 
                    {
-                        System.out.println("bottom collided: " + playerblock.getIsBottomCollided(arrSprites[n]));
+                        //System.out.println("bottom collided: " + playerblock.getIsBottomCollided(arrSprites[n]));
                          playerblock.setIsJumping(false);
                         playerblock.setIsStartJumping(false);
                         playerblock.setIsFalling(true);
@@ -281,10 +336,10 @@ public class HelloTVXlet implements Xlet, UserEventListener, ResourceClient, HBa
                     
                    if (playerblock.getIsTopCollided(arrSprites[n]) && !playerblock.getIsLeftCollided(arrSprites[n]) && !playerblock.getIsRightCollided(arrSprites[n])) // Als de playerblock zijn onderkant de top van een Sprite raakt stopt hij met vallen en springen
                    {
-                        System.out.println("top collided: " + playerblock.getIsTopCollided(arrSprites[n]));
+                        //System.out.println("top collided: " + playerblock.getIsTopCollided(arrSprites[n]));
                         playerblock._posY = arrSprites[n]._posY - playerblock._height;
                         playerblock.setIsFalling(false);
-                        playerblock.setIsJumping(playerblock.getIsStartJumping());   // De jumpforce reset
+                        playerblock.setJumpForce(playerblock.getStartJumpforce());   // De jumpforce reset
                         playerblock.setIsStartJumping(false);
 //                      System.out.println("playerblock stop: " + Integer.toString(playerblock._posY));
 //                      System.out.println("groundblock stop: " + Integer.toString(groundblock._posY));
@@ -292,7 +347,7 @@ public class HelloTVXlet implements Xlet, UserEventListener, ResourceClient, HBa
 
                    if (playerblock.getIsLeftCollided(arrSprites[n]))
                    {
-                       System.out.println("left collided: " + playerblock.getIsLeftCollided(arrSprites[n]));
+                       //System.out.println("left collided: " + playerblock.getIsLeftCollided(arrSprites[n]));
                        //Na zijkant botsen vallen 
 //                        playerblock.setIsJumping(false);
 //                        playerblock.setIsStartJumping(false);
@@ -302,16 +357,35 @@ public class HelloTVXlet implements Xlet, UserEventListener, ResourceClient, HBa
 
                    if (playerblock.getIsRightCollided(arrSprites[n]))
                    {
-                       System.out.println("right collided: " + playerblock.getIsRightCollided(arrSprites[n]));
+                       //System.out.println("right collided: " + playerblock.getIsRightCollided(arrSprites[n]));
 //                        playerblock.setIsJumping(false);
 //                       playerblock.setIsStartJumping(false);
 //                       playerblock.setIsFalling(true);
                         playerblock._posX += playerblock._velocityX;
                    }
+                  
                 }
-//
+                if (arrSprites[n].getClass().equals(CoinBlock.class))
+                
+                   if (playerblock.getIsCollided(arrSprites[n]))
+                   {
+                       CoinBlock coinB = (CoinBlock)arrSprites[n];
+
+                       if(!coinB.getIsCollected())
+                       {
+                           _score += coinB.getValue();
+                           _scoreText.setTextContent("Score: " + _score, HVisible.NORMAL_STATE);
+                           scene.remove(arrSprites[n]);
+                           scene.repaint();
+                       }
+                       coinB.setIsCollected(true);
+
+                       System.out.println("score : " + _score);    
+                   } 
+
+                }
 //                System.out.println(arrSprites[n].getClass());
             }
         }
     }
-}
+
