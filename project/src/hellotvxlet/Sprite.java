@@ -31,6 +31,15 @@ public class Sprite extends HComponent{
     protected int _velocityX;
     //private int _velocityX = 12;
     
+    //setter
+    public void setXPos(int initXPos) {
+        this._posX = initXPos;
+    }
+    //setter
+    public void setYPos(int initYpos) {
+        this._posY = initYpos;
+    }
+    
     //colliding
     //private Rectangle _bottomRectangle;
     //private Rectangle _playerblockRectangle;

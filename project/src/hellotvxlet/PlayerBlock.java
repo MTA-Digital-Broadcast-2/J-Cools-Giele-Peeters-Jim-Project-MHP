@@ -101,7 +101,7 @@ public class PlayerBlock extends Sprite {
     {
         this._isStartJumping = initIsStartJumping;
     }
-   
+      
    public PlayerBlock(String initBitmapNaam, int initXPos, int initYPos, int initWidth, int initHeight, int initVelocityX )
    {
         super(initBitmapNaam, initXPos, initYPos, initWidth, initHeight, initVelocityX);

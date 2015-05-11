@@ -1,10 +1,10 @@
 Signature-Version: 1.0
 Created-By: 1.6.0_16 (Sun Microsystems Inc.)
 BDJ-Signature-Version: 1.0
-SHA1-Digest-Manifest: VZ2cLy0f6K0jOEF2gavY/rgND0c=
+SHA1-Digest-Manifest: bmc3qkC0eW/gCZ2Z9aT3s5+GQB4=
 
 Name: hellotvxlet/HelloTVXlet.class
-SHA1-Digest: QFzjp9oL1oUY5ufxQ85BvIJ4Z3I=
+SHA1-Digest: q2MI+CPkAqw3X8RepoJOPCh/juw=
 
 Name: hellotvxlet/MijnComponent.class
 SHA1-Digest: Hs+pL3kpB7QXfwbvh5IhNXsywUo=
@@ -28,7 +28,7 @@ Name: hellotvxlet/PlayerBlock.class
 SHA1-Digest: EQ1zWE01UWjRdkOnrzkDGZAsvug=
 
 Name: hellotvxlet/Sprite.class
-SHA1-Digest: kb8+tbJDfQPZQeXVSTJJZV+dPvU=
+SHA1-Digest: d2yR32P+puxKMFI3axopyxkQ5VQ=
 
 Name: Thumbs.db
 SHA1-Digest: 6tmyLYrY5/4ce++DDloLgfd7Lj0=

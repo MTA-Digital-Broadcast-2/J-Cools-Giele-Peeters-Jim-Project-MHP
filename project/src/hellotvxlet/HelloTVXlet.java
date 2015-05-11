@@ -27,6 +27,11 @@ public class HelloTVXlet implements Xlet, UserEventListener, ResourceClient, HBa
     private HStillImageBackgroundConfiguration bgConfiguration;
     private HBackgroundImage bgImage = new HBackgroundImage("backgroundimage.jpg");
     
+    //grootte en breedte van het scherm
+    Dimension screenSize;
+    int screenHeight;
+    int screenWidth;
+    
     private PlayerBlock playerblock;
     private Sprite groundblock;
     
@@ -108,9 +113,12 @@ public class HelloTVXlet implements Xlet, UserEventListener, ResourceClient, HBa
       scene = HSceneFactory.getInstance().getBestScene(sceneTemplate);
      
       //grootte en breedte van het scherm
-      Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-      int screenHeight = screenSize.height;
-      int screenWidth = screenSize.width;
+//      Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+//      int screenHeight = screenSize.height;
+//      int screenWidth = screenSize.width;
+        screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        screenHeight = screenSize.height;
+        screenWidth = screenSize.width;
       
    
         
@@ -212,6 +220,7 @@ public class HelloTVXlet implements Xlet, UserEventListener, ResourceClient, HBa
     repository.addKey(org.havi.ui.event.HRcEvent.VK_DOWN);
     repository.addKey(org.havi.ui.event.HRcEvent.VK_LEFT);
     repository.addKey(org.havi.ui.event.HRcEvent.VK_RIGHT);
+    repository.addKey(org.havi.ui.event.HRcEvent.VK_SPACE);
     
     manager.addUserEventListener(this, repository);
    
@@ -252,6 +261,20 @@ public class HelloTVXlet implements Xlet, UserEventListener, ResourceClient, HBa
                    break;
                case HRcEvent.VK_DOWN:
                    //System.out.println("Down key pressed");
+                   //this.playerblock.move(4);
+                   break;
+               case HRcEvent.VK_SPACE:
+                   System.out.println("space pressed");
+//                   scene.removeAll();
+//                   scene.repaint();
+                   resetGame();
+//                try {
+//                    destroyXlet(true);
+//                    initXlet(actueleXletContext);
+//                    startXlet(); 
+//                } catch (XletStateChangeException ex) {
+//                    ex.printStackTrace();
+//                }
                    //this.playerblock.move(4);
                    break;
                    
@@ -386,6 +409,43 @@ public class HelloTVXlet implements Xlet, UserEventListener, ResourceClient, HBa
                 }
 //                System.out.println(arrSprites[n].getClass());
             }
+        }
+    
+        public void resetGame()
+        {
+
+            for (int n = 0; n < arrSprites.length; n++)
+            {
+                _score = 0;
+                
+                try
+                {
+                   System.out.println("RESET ");
+                   scene.remove(arrSprites[n]);
+                   
+                   if (arrSprites[n].getClass().equals(PlayerBlock.class)) 
+                   {
+                        arrSprites[n].setXPos(0);
+                        arrSprites[n].setYPos(screenHeight - 75 - 60);
+                   }
+                   
+                   if (arrSprites[n].getClass().equals(CoinBlock.class)) 
+                   {
+                        CoinBlock coinB = (CoinBlock)arrSprites[n];
+                        coinB.setIsCollected(false);
+                   }
+                   
+                   scene.add(arrSprites[n]);
+                   _scoreText.setTextContent("Score: " + _score, HVisible.NORMAL_STATE);
+                }    
+                catch(Exception s)
+                {
+                    System.out.println(s.toString());
+                }     
+            } 
+          
+            scene.repaint();
+            
         }
     }
 
