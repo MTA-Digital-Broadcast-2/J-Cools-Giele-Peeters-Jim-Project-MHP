@@ -6,10 +6,13 @@ import org.dvb.ui.*;
 import org.dvb.event.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.io.File;
+import java.io.FileInputStream;
 import org.havi.ui.event.*;
 import org.havi.ui.*;
 import java.util.Timer;
 import org.davic.resources.*;
+import org.havi.ui.HSound.*;
 
 //rechtermuisknop add abstract interface , er komt methode bij vanonvder waar alles in moetuserventRecieved
 
@@ -43,6 +46,7 @@ public class HelloTVXlet implements Xlet, UserEventListener, ResourceClient, HBa
     private Sprite platformblock3;
     private Sprite platformblock4;
     
+    private int numberCoins;
     private CoinBlock coin1;
     private CoinBlock coin2;
     private CoinBlock coin3;
@@ -51,8 +55,23 @@ public class HelloTVXlet implements Xlet, UserEventListener, ResourceClient, HBa
     
     private int _score = 0;
     private HStaticText _scoreText;
+    private HStaticText _endText;
     
     private Sprite[] arrSprites = new Sprite[20]; 
+    
+    // Create an HSound object
+    HSound soundPlayerCoin;
+//    HSound soundPlayerBackground;
+    HSound soundPlayerEndMusic;
+    java.io.File fileCoin;
+//    java.io.File fileBackground;
+    java.io.File fileEndMusic;
+    byte[] audioDataCoin;
+//    byte[] audioDataBackground;
+    byte[] audioDataEndMusic;
+    java.io.FileInputStream streamCoin;
+//    java.io.FileInputStream streamBackground;
+    java.io.FileInputStream streamEndMusic;
 
     
     //---------------------
@@ -139,11 +158,12 @@ public class HelloTVXlet implements Xlet, UserEventListener, ResourceClient, HBa
       platformblock3 = new Sprite("block.png", 600, 260, 70, 70);
       platformblock4 = new Sprite("block.png", 400, 400, 70, 70);
       
-      coin1 = new CoinBlock("coin_gold.png", 100, 200, 35, 35);
-      coin2 = new CoinBlock("coin_gold.png", 200, 200, 35, 35);
-      coin3 = new CoinBlock("coin_gold.png", 300, 200, 35, 35);
-      coin4 = new CoinBlock("coin_gold.png", 400, 200, 35, 35);
-      coin5 = new CoinBlock("coin_gold.png", 500, 200, 35, 35);
+      numberCoins = 5;
+      coin1 = new CoinBlock("coin_gold.png", 70, 50, 35, 35);
+      coin2 = new CoinBlock("coin_gold.png", 230, 130, 35, 35);
+      coin3 = new CoinBlock("coin_gold.png", 350, 150, 35, 35);
+      coin4 = new CoinBlock("coin_gold.png", 470, 130, 35, 35);
+      coin5 = new CoinBlock("coin_gold.png", 610, 130, 35, 35);
       //System.out.println(screenHeight);
       //System.out.println(screenWidth);
       //System.out.println(screenHeight - 100);
@@ -157,11 +177,13 @@ public class HelloTVXlet implements Xlet, UserEventListener, ResourceClient, HBa
       _scoreText.setHorizontalAlignment(HVisible.HALIGN_CENTER);
       _scoreText.setVerticalAlignment(HVisible.VALIGN_CENTER);
       
-      //Vraag labo ---------------------------------------------------------------------------------------------------
-      System.out.println(playerblock.getHeight());
-      System.out.println(playerblock.getWidth());
-      System.out.println(groundblock.getHeight());
-      System.out.println(groundblock.getWidth());
+      _endText = new HStaticText("Congratulations! Hit space key to relive the fun!" );
+      _endText.setSize(screenWidth-_endText.getWidth(), 70);
+      _endText.setLocation(screenWidth-_endText.getWidth(), 170);
+      _endText.setBackground(new DVBColor(0, 127, 255, 70));
+      _endText.setHorizontalAlignment(HVisible.HALIGN_CENTER);
+      _endText.setVerticalAlignment(HVisible.VALIGN_CENTER);
+      _endText.setVisible(false);
       
       //sprites aan array toevoegen
       arrSprites[0] = playerblock;
@@ -193,6 +215,7 @@ public class HelloTVXlet implements Xlet, UserEventListener, ResourceClient, HBa
       scene.add(coin5);
       
       scene.add(_scoreText);
+      scene.add(_endText);
       
       MijnTimerTask objMijnTimerTask = new MijnTimerTask(this);
       Timer timer = new Timer();
@@ -201,6 +224,57 @@ public class HelloTVXlet implements Xlet, UserEventListener, ResourceClient, HBa
       scene.validate();
       scene.setVisible(true);
       
+      // create the File object that we will get the data 
+    // from
+        fileCoin = new File("coin.mp2");
+//        fileBackground = new File("raymansong.mp2");
+         fileEndMusic = new File("endmusic.mp2");
+        
+
+      // Create a memory buffer to hold the audio clip
+      audioDataCoin = new byte[(int)fileCoin.length()];
+//      audioDataBackground = new byte[(int)fileBackground.length()];
+      audioDataEndMusic= new byte[(int)fileEndMusic.length()];
+      
+      // Load the audio clip in to the memory buffer 
+    // using the standard Java file operations.  We 
+    // could also use the DSM-CC API and load this file 
+    // asynchronously if we wanted to.
+    try {
+      streamCoin = new FileInputStream(fileCoin);
+//      streamBackground = new FileInputStream(fileBackground);
+      streamEndMusic = new FileInputStream(fileEndMusic);
+      streamCoin.read(audioDataCoin);
+//      streamBackground.read(audioDataBackground);
+      streamEndMusic.read(audioDataEndMusic);
+ 
+      streamCoin.close();
+//      streamBackground.close();
+      streamEndMusic.close();
+    }
+    catch (Exception e) {
+      e.printStackTrace();
+    }
+      
+      soundPlayerCoin = new HSound();
+//      soundPlayerBackground = new HSound();
+      soundPlayerEndMusic = new HSound();
+      
+      // Load an audio clip into the HSound object
+//      try 
+//      {
+//        soundPlayer.load("./coin.mp2");
+//      }
+//      catch (Exception e) {
+//        e.printStackTrace();
+//      }
+      
+      // Tell the HSound object to use the sample data 
+        // that we have just loaded
+        soundPlayerCoin.set(audioDataCoin);
+//        soundPlayerBackground.set(audioDataBackground);
+        soundPlayerEndMusic.set(audioDataEndMusic);
+     
     }
 
     public void startXlet() throws XletStateChangeException{
@@ -223,6 +297,10 @@ public class HelloTVXlet implements Xlet, UserEventListener, ResourceClient, HBa
     repository.addKey(org.havi.ui.event.HRcEvent.VK_SPACE);
     
     manager.addUserEventListener(this, repository);
+    
+    // Now play the clip
+//    soundPlayerBackground.play();
+//    soundPlayerBackground.loop();
    
     }
 
@@ -264,7 +342,7 @@ public class HelloTVXlet implements Xlet, UserEventListener, ResourceClient, HBa
                    //this.playerblock.move(4);
                    break;
                case HRcEvent.VK_SPACE:
-                   System.out.println("space pressed");
+//                   System.out.println("space pressed");
 //                   scene.removeAll();
 //                   scene.repaint();
                    resetGame();
@@ -393,17 +471,28 @@ public class HelloTVXlet implements Xlet, UserEventListener, ResourceClient, HBa
                    if (playerblock.getIsCollided(arrSprites[n]))
                    {
                        CoinBlock coinB = (CoinBlock)arrSprites[n];
-
+                       
                        if(!coinB.getIsCollected())
                        {
+                           // Now play the clip
+                           soundPlayerCoin.play();
                            _score += coinB.getValue();
                            _scoreText.setTextContent("Score: " + _score, HVisible.NORMAL_STATE);
                            scene.remove(arrSprites[n]);
                            scene.repaint();
                        }
                        coinB.setIsCollected(true);
+                       
+                       if(_score == numberCoins ) 
+                       {
+                           //display reset info
+                           
+                          // Now play the clip
+                           soundPlayerEndMusic.play();
+                           _endText.setVisible(true);
+                       }
 
-                       System.out.println("score : " + _score);    
+//                       System.out.println("score : " + _score);   
                    } 
 
                 }
@@ -413,14 +502,16 @@ public class HelloTVXlet implements Xlet, UserEventListener, ResourceClient, HBa
     
         public void resetGame()
         {
-
+            soundPlayerEndMusic.stop();
+            _endText.setVisible(false);
+            
             for (int n = 0; n < arrSprites.length; n++)
             {
                 _score = 0;
                 
                 try
                 {
-                   System.out.println("RESET ");
+//                   System.out.println("RESET ");
                    scene.remove(arrSprites[n]);
                    
                    if (arrSprites[n].getClass().equals(PlayerBlock.class)) 
