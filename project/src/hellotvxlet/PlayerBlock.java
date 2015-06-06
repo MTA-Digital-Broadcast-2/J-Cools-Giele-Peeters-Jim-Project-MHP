@@ -148,13 +148,13 @@ public class PlayerBlock extends Sprite {
         this._posY += this._velocityY;
         
         //vallen wordt tegengewerkt als hij springt
-        System.out.println("isjumping : " + this._isJumping);
-        System.out.println("isstartjumping : " + this._isStartJumping);
+//        System.out.println("isjumping : " + this._isJumping);
+//        System.out.println("isstartjumping : " + this._isStartJumping);
         if (this._isJumping == true || this._isStartJumping == true) //jumping
         {
             if (this._posY < this._posY + this._jumpForce && this._isFalling == false)
             {
-                System.out.println("jumping");
+//                System.out.println("jumping");
                 this._posY -= this._velocityY;
                 this._posY -= this._velocityY;
                 this._jumpForce--;
