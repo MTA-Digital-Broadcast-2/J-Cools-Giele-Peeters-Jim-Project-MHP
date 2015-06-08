@@ -28,7 +28,7 @@ public class HelloTVXlet implements Xlet, UserEventListener, ResourceClient, HBa
     private HBackgroundDevice bgDevice;
     private HBackgroundConfigTemplate bgTemplate;
     private HStillImageBackgroundConfiguration bgConfiguration;
-    private HBackgroundImage bgImage = new HBackgroundImage("backgroundimage.jpg");
+    private HBackgroundImage bgImage = new HBackgroundImage("backgroundimage.png");
     
     //grootte en breedte van het scherm
     Dimension screenSize;
